@@ -16,7 +16,6 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
 | Wi-Fi / BT | Intel AX211 |
 | Audio | Realtek ALC298 |
 
-BIOS version used: `<fill in>`
 
 ## Status
 
