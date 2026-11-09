@@ -60,4 +60,4 @@ The modified WhateverXe source is at <https://github.com/vikenzo196/WhateverXe>;
 
 ## Credits
 
-Acidanthera (OpenCore, Lilu, VirtualSMC, AppleALC, WhateverGreen and friends), the WhateverXe and NootedGreen authors, the VoodooI2C and VoodooPS2 teams, OpenIntelWireless (itlwm), USBToolBox, and everyone whose work is bundled here. See `THIRD-PARTY.md`.
+Acidanthera (OpenCore, Lilu, VirtualSMC, AppleALC, WhateverGreen and friends), the WhateverXe and NootedGreen authors, the VoodooI2C and VoodooPS2 teams, OpenIntelWireless (itlwm), USBToolBox.
