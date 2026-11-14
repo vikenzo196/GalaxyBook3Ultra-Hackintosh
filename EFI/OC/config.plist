@@ -1447,7 +1447,7 @@
 				AAAAAAAAAAAAAAAAAAA=
 				</data>
 				<key>boot-args</key>
-				<string>-v debug=0x100 keepsyms=1 msgbuf=1048576 ctrsmt=full -ibtcompatbeta -wegnoegpu -allow3d -disablegfxfirmware -igfxdvmt -wex-edp-keep -wex-edp-dsc shda-lang=it alcverbs=1 -wex-edp-blank rtcfx_exclude=0x80-0xAB -wex-mtl-poshfix -wex-edp-auxbl -wex-pm</string>
+				<string>keepsyms=1 msgbuf=1048576 ctrsmt=full -ibtcompatbeta -wegnoegpu -allow3d -disablegfxfirmware -igfxdvmt -wex-edp-keep -wex-edp-dsc shda-lang=it alcverbs=1 -wex-edp-blank rtcfx_exclude=0x80-0xAB -wex-mtl-poshfix -wex-edp-auxbl -wex-pm</string>
 				<key>csr-active-config</key>
 				<data>
 				QwoAAA==

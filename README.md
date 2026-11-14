@@ -67,7 +67,7 @@ The modified WhateverXe source is at <https://github.com/vikenzo196/WhateverXe> 
 4. Install [WhateverXe Graphics 0.4.4](https://github.com/b00t0x/WhateverXe-Graphics/releases) in macOS (TGL driver
    kexts in `/Library/Extensions`, `AppleIntelTGLCompat` 0.8.1). Older Compat builds only accept exact macOS
    builds and lose acceleration after a point update.
-5. Review the boot-args: `-v debug=0x100 keepsyms=1 msgbuf=1048576` are debug options and can be removed once everything works.
+5. Review the boot-args: verbose mode (`-v`) is off. `keepsyms=1 msgbuf=1048576` only help reading panics and kernel logs and can be removed if not needed.
 
 `ACPI/DSDT.aml` is a patched dump of this laptop's firmware table. It depends on the BIOS version and you should replace it with your own dump if yours differs.
 
