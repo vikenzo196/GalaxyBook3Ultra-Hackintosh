@@ -6,7 +6,7 @@ These files are included unmodified (or built from the fork linked in the README
 |---|---|
 | Lilu | 1.7.3 |
 | AMFIPass | 1.4.1 |
-| WhateverXe-dsc (fork build) | 0.7.0 |
+| WhateverXe-dsc (fork build) | 0.8.2 |
 | AppleALC | 1.9.8 |
 | SimpleHDA | 1.0.0 |
 | BrightnessKeys | 1.0.4 |
@@ -21,5 +21,6 @@ These files are included unmodified (or built from the fork linked in the README
 | VoodooI2C | 2.9.1 |
 | VoodooI2CHID | 1.0 |
 | VoodooPS2Controller | 2.3.8 |
-| itlwm | 2.3.0 |
+| itlwm | 2.3.0 (patched, see `patches/`) |
+| IntelBluetoothFirmware / IntelBTPatcher (lshbluesky fork, GPL-3.0) | 2.5.3 |
 | OpenCore drivers | HfsPlus, OpenRuntime, ResetNvramEntry, apfs_aligned |

@@ -219,6 +219,17 @@
 						CQAAAA==
 						</data>
 					</dict>
+					<key>HS10</key>
+					<dict>
+						<key>#comment</key>
+						<string>USB2 Bluetooth AX211 interno</string>
+						<key>UsbConnector</key>
+						<integer>255</integer>
+						<key>port</key>
+						<data>
+						CgAAAA==
+						</data>
+					</dict>
 					<key>HS11</key>
 					<dict>
 						<key>#comment</key>
