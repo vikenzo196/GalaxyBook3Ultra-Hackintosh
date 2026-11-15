@@ -1,0 +1,217 @@
+From 64b33fb65ea8fb70bc2fa83902b37294e8dfa9e6 Mon Sep 17 00:00:00 2001
+From: vikenzo196 <vikenzo196@users.noreply.github.com>
+Date: Sun, 15 Nov 2026 02:20:21 +0100
+Subject: [PATCH 1/3] Add Raptor Lake-P Smart Sound DSP (8086:51CA, 51CB)
+
+Raptor Lake-P uses the same Intel-signed SOF image as Alder Lake
+(sof-rpl.ri and sof-adl.ri are byte-identical in sof-bin v2.6.1), so
+it is handled as the Alder Lake family.
+
+Tested on a Samsung Galaxy Book3 Ultra (i9-13900H, 8086:51CA, ALC298,
+2 PDM mics) on macOS Tahoe 26.7.3 with AppleHDA (SimpleHDA + AppleALC):
+the bundled sof-adl.ri v2.2 reaches FW_READY, capture runs at 48 kHz on
+ch0/ch1, and the Core Audio plug-in records speech.
+
+---
+ kext/TGLDmic/Info.plist  | 2 +-
+ kext/TGLDmic/TGLDmic.cpp | 2 ++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/kext/TGLDmic/Info.plist b/kext/TGLDmic/Info.plist
+index aa66db1..7c616b8 100644
+--- a/kext/TGLDmic/Info.plist
++++ b/kext/TGLDmic/Info.plist
+@@ -31,7 +31,7 @@
+ 			<key>IOProviderClass</key>
+ 			<string>IOPCIDevice</string>
+ 			<key>IOPCIPrimaryMatch</key>
+-			<string>0x02c88086 0x9dc88086 0xa3488086 0x06c88086 0xa0c88086 0x43c88086 0x34c88086 0x51c88086 0x51cc8086 0x51c98086 0x51cd8086</string>
++			<string>0x02c88086 0x9dc88086 0xa3488086 0x06c88086 0xa0c88086 0x43c88086 0x34c88086 0x51c88086 0x51cc8086 0x51c98086 0x51cd8086 0x51ca8086 0x51cb8086</string>
+ 			<key>IOProbeScore</key>
+ 			<integer>100</integer>
+ 			<key>IOUserClientClass</key>
+diff --git a/kext/TGLDmic/TGLDmic.cpp b/kext/TGLDmic/TGLDmic.cpp
+index 2b9081b..3632078 100644
+--- a/kext/TGLDmic/TGLDmic.cpp
++++ b/kext/TGLDmic/TGLDmic.cpp
+@@ -123,6 +123,8 @@ IOService *TGLDmic::probe(IOService *provider, SInt32 *score) {
+         case 0x51CC: // Alder Lake-P/U Smart Sound DSP (native)
+         case 0x51C9: // Alder Lake-M
+         case 0x51CD: // Alder Lake-S
++        case 0x51CA: // Raptor Lake-P Smart Sound DSP (same Intel-signed SOF image as ADL)
++        case 0x51CB: // Raptor Lake-P
+             platformFamily = kPlatformAlderLake;
+             break;
+ 
+-- 
+2.50.1 (Apple Git-155)
+
+
+From 37b08030c2961471264c888350583c6e611df065 Mon Sep 17 00:00:00 2001
+From: vikenzo196 <vikenzo196@users.noreply.github.com>
+Date: Sun, 15 Nov 2026 02:21:03 +0100
+Subject: [PATCH 2/3] README: list Raptor Lake-P (51CA/51CB) and the Galaxy
+ Book3 Ultra
+
+---
+ README.md | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/README.md b/README.md
+index e797906..41bef42 100644
+--- a/README.md
++++ b/README.md
+@@ -31,9 +31,10 @@ TGLDmic boots Intel's signed SOF firmware on that DSP and exposes the mics to ma
+ | | |
+ |---|---|
+ | Supported (Alder Lake) | Intel Smart Sound DSP `8086:51CC`: Alder Lake **LP / P / U** (12th-gen Core, e.g. **HP Envy x360 13-bf0xxx** i7-1250U)<br>Intel Smart Sound DSP `8086:51C8`: Alder Lake-P (OpenCore spoof ID)<br>Intel Smart Sound DSP `8086:51C9`: Alder Lake-M<br>Intel Smart Sound DSP `8086:51CD`: Alder Lake-S |
++| Supported (Raptor Lake) | Intel Smart Sound DSP `8086:51CA` / `8086:51CB`: Raptor Lake-P (13th-gen Core, e.g. **Samsung Galaxy Book3 Ultra** i9-13900H). Same Intel-signed SOF image as Alder Lake (`sof-adl.ri`) |
+ | Supported (Comet Lake / CFL) | Intel Smart Sound DSP `8086:02C8`: Comet Lake **LP** (10th-gen Core, e.g. **Lenovo ThinkPad X1 Carbon Gen 7** i7-10710U / i5-10210U)<br>Intel Smart Sound DSP `8086:9DC8`: Cannon Lake / Whiskey Lake **LP** (e.g. ThinkPad X1 Carbon Gen 7 i7-8565U)<br>Intel Smart Sound DSP `8086:06C8`, `8086:A348`: Comet Lake-H, Coffee Lake-H |
+ | Supported (Tiger Lake) | Intel Smart Sound DSP `8086:A0C8`: Tiger Lake **LP** (11th-gen Core, UP3/UP4)<br>Intel Smart Sound DSP `8086:43C8`: Tiger Lake **H** |
+-| Tested hardware | **HP Envy x360 13-bf0xxx** (Alder Lake-P i7-1250U, dual PDM mics, ALC245 + dual CS35L41)<br>**Lenovo ThinkPad X1 Carbon Gen 7** (Comet Lake i7-10710U, 4 PDM mics, ALC285)<br>**HP EliteBook 840 G8** (Tiger Lake i5-1135G7, 4 PDM mics, ALC285) |
++| Tested hardware | **HP Envy x360 13-bf0xxx** (Alder Lake-P i7-1250U, dual PDM mics, ALC245 + dual CS35L41)<br>**Lenovo ThinkPad X1 Carbon Gen 7** (Comet Lake i7-10710U, 4 PDM mics, ALC285)<br>**HP EliteBook 840 G8** (Tiger Lake i5-1135G7, 4 PDM mics, ALC285) |<br>**Samsung Galaxy Book3 Ultra NP964XFH** (Raptor Lake-P i9-13900H, 2 PDM mics, ALC298, macOS Tahoe 26.7.3)
+ | macOS | Ventura, Sonoma, Sequoia, Tahoe tested / supported |
+ | Audio driver | Works next to **AppleALC/AppleHDA** or **HDAUniversal** (speakers and headset stay with them) |
+ 
+-- 
+2.50.1 (Apple Git-155)
+
+
+From e4d193937d1bcd83bf3531ab92940c0d2f2832cd Mon Sep 17 00:00:00 2001
+From: vikenzo196 <vikenzo196@users.noreply.github.com>
+Date: Sun, 15 Nov 2026 02:48:00 +0100
+Subject: [PATCH 3/3] HAL: expose an 'imic' data source control
+
+Siri does not record from a device without a data source. Its
+SRFUserDefaultsController.effectiveMicrophoneIdentifier comes from
+DictationServices' SOAudioDeviceManager.siriInputDevice, which ranks
+input sources by suitability. A device with no data source shows up as
+Kind "" / Suitability 1 and is never chosen. Siri then says "Connect a
+microphone" (SiriUIDismissalReasonNoValidMicrophone) or picks another
+built-in input.
+
+Publish a kAudioDataSourceControlClassID selector control with the single
+item kAudioDataSourceInternalMic ('imic', "Internal Microphone"). The
+source then reports Kind imic / Suitability 101 and becomes Siri's input
+device.
+
+---
+ hal/TGLDmicDriver.cpp | 46 +++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 40 insertions(+), 6 deletions(-)
+
+diff --git a/hal/TGLDmicDriver.cpp b/hal/TGLDmicDriver.cpp
+index d9c0b30..5c922a1 100644
+--- a/hal/TGLDmicDriver.cpp
++++ b/hal/TGLDmicDriver.cpp
+@@ -30,7 +30,9 @@ enum {
+     kObjectID_Device = 2,
+     kObjectID_Stream_Input = 3,
+     kObjectID_Volume_Input_Master = 4,
++    kObjectID_DataSource_Input = 5,   // 'imic' data source: Siri/DictationServices rank the mic by it
+ };
++static const UInt32 kDataSourceInternalMic = 'imic';
+ 
+ static const AudioObjectPropertyElement kElementMain = 0;   // kAudioObjectPropertyElementMain (macOS 12 SDK name)
+ static const Float64 kSampleRate = 48000.0;
+@@ -339,6 +341,15 @@ static Boolean HasPropertyImpl(AudioServerPlugInDriverRef inDriver, AudioObjectI
+             return true;
+         }
+         return false;
++    case kObjectID_DataSource_Input:
++        switch (a->mSelector) {
++        case kAudioObjectPropertyBaseClass: case kAudioObjectPropertyClass: case kAudioObjectPropertyOwner:
++        case kAudioObjectPropertyOwnedObjects: case kAudioControlPropertyScope: case kAudioControlPropertyElement:
++        case kAudioSelectorControlPropertyCurrentItem: case kAudioSelectorControlPropertyAvailableItems:
++        case kAudioSelectorControlPropertyItemName:
++            return true;
++        }
++        return false;
+     }
+     return false;
+ }
+@@ -355,6 +366,7 @@ static OSStatus IsPropertySettableImpl(AudioServerPlugInDriverRef inDriver, Audi
+         (a->mSelector == kAudioStreamPropertyVirtualFormat || a->mSelector == kAudioStreamPropertyPhysicalFormat))
+         *out = true;   // accepted only if it equals the single supported format
+     if (obj == kObjectID_Device && a->mSelector == kAudioDevicePropertyNominalSampleRate) *out = true;
++    if (obj == kObjectID_DataSource_Input && a->mSelector == kAudioSelectorControlPropertyCurrentItem) *out = true;
+     return kAudioHardwareNoError;
+ }
+ 
+@@ -371,14 +383,16 @@ static OSStatus GetPropertyDataSizeImpl(AudioServerPlugInDriverRef inDriver, Aud
+     case kAudioDevicePropertyModelUID: case kAudioPlugInPropertyResourceBundle:
+         *out = sizeof(CFStringRef); return 0;
+     case kAudioObjectPropertyOwnedObjects:
+-        *out = (obj == kObjectID_PlugIn ? 1 : (obj == kObjectID_Device && a->mScope != kAudioObjectPropertyScopeOutput) ? 2 : 0)
++        *out = (obj == kObjectID_PlugIn ? 1 : (obj == kObjectID_Device && a->mScope != kAudioObjectPropertyScopeOutput) ? 3 : 0)
+                * sizeof(AudioObjectID); return 0;
+     case kAudioPlugInPropertyDeviceList: case kAudioDevicePropertyRelatedDevices:
+         *out = sizeof(AudioObjectID); return 0;
+     case kAudioDevicePropertyStreams:
+         *out = (a->mScope == kAudioObjectPropertyScopeOutput ? 0 : 1) * sizeof(AudioObjectID); return 0;
+     case kAudioObjectPropertyControlList:
+-        *out = sizeof(AudioObjectID); return 0;
++        *out = 2 * sizeof(AudioObjectID); return 0;
++    case kAudioSelectorControlPropertyItemName:
++        *out = sizeof(CFStringRef); return 0;
+     case kAudioDevicePropertyNominalSampleRate:
+         *out = sizeof(Float64); return 0;
+     case kAudioDevicePropertyAvailableNominalSampleRates:
+@@ -444,6 +458,7 @@ static OSStatus GetPropertyDataImpl(AudioServerPlugInDriverRef inDriver, AudioOb
+             if (a->mScope != kAudioObjectPropertyScopeOutput) {
+                 if (inDataSize >= (n + 1) * sizeof(AudioObjectID)) ids[n++] = kObjectID_Stream_Input;
+                 if (inDataSize >= (n + 1) * sizeof(AudioObjectID)) ids[n++] = kObjectID_Volume_Input_Master;
++                if (inDataSize >= (n + 1) * sizeof(AudioObjectID)) ids[n++] = kObjectID_DataSource_Input;
+             }
+             *outDataSize = n * sizeof(AudioObjectID); return 0;
+         }
+@@ -451,10 +466,12 @@ static OSStatus GetPropertyDataImpl(AudioServerPlugInDriverRef inDriver, AudioOb
+             *outDataSize = (a->mScope != kAudioObjectPropertyScopeOutput && inDataSize >= sizeof(AudioObjectID)) ? sizeof(AudioObjectID) : 0;
+             if (*outDataSize) ids[0] = kObjectID_Stream_Input;
+             return 0;
+-        case kAudioObjectPropertyControlList:
+-            *outDataSize = inDataSize >= sizeof(AudioObjectID) ? sizeof(AudioObjectID) : 0;
+-            if (*outDataSize) ids[0] = kObjectID_Volume_Input_Master;
+-            return 0;
++        case kAudioObjectPropertyControlList: {
++            UInt32 n = 0;
++            if (inDataSize >= (n + 1) * sizeof(AudioObjectID)) ids[n++] = kObjectID_Volume_Input_Master;
++            if (inDataSize >= (n + 1) * sizeof(AudioObjectID)) ids[n++] = kObjectID_DataSource_Input;
++            *outDataSize = n * sizeof(AudioObjectID); return 0;
++        }
+         case kAudioDevicePropertyTransportType: NEED(sizeof(UInt32)); *u32 = kAudioDeviceTransportTypeBuiltIn; return 0;
+         case kAudioDevicePropertyRelatedDevices:
+             *outDataSize = inDataSize >= sizeof(AudioObjectID) ? sizeof(AudioObjectID) : 0;
+@@ -539,6 +556,19 @@ static OSStatus GetPropertyDataImpl(AudioServerPlugInDriverRef inDriver, AudioOb
+             *v = dbToScalar(db); return 0;
+         }
+         }
++    } else if (obj == kObjectID_DataSource_Input) {
++        switch (a->mSelector) {
++        case kAudioObjectPropertyBaseClass: NEED(sizeof(AudioClassID)); *u32 = kAudioSelectorControlClassID; return 0;
++        case kAudioObjectPropertyClass: NEED(sizeof(AudioClassID)); *u32 = kAudioDataSourceControlClassID; return 0;
++        case kAudioObjectPropertyOwner: NEED(sizeof(AudioObjectID)); *ids = kObjectID_Device; return 0;
++        case kAudioObjectPropertyOwnedObjects: *outDataSize = 0; return 0;
++        case kAudioControlPropertyScope: NEED(sizeof(AudioObjectPropertyScope)); *u32 = kAudioObjectPropertyScopeInput; return 0;
++        case kAudioControlPropertyElement: NEED(sizeof(AudioObjectPropertyElement)); *u32 = kElementMain; return 0;
++        case kAudioSelectorControlPropertyCurrentItem: case kAudioSelectorControlPropertyAvailableItems:
++            NEED(sizeof(UInt32)); *u32 = kDataSourceInternalMic; return 0;
++        case kAudioSelectorControlPropertyItemName:
++            NEED(sizeof(CFStringRef)); *str = CFSTR("Internal Microphone"); return 0;
++        }
+     }
+     return kAudioHardwareUnknownPropertyError;
+ }
+@@ -598,6 +628,10 @@ static OSStatus SetPropertyData(AudioServerPlugInDriverRef inDriver, AudioObject
+             return kAudioDeviceUnsupportedFormatError;
+         return kAudioHardwareNoError;
+     }
++    if (obj == kObjectID_DataSource_Input && a->mSelector == kAudioSelectorControlPropertyCurrentItem) {
++        if (inDataSize != sizeof(UInt32)) return kAudioHardwareBadPropertySizeError;
++        return *static_cast<const UInt32 *>(inData) == kDataSourceInternalMic ? kAudioHardwareNoError : kAudioHardwareIllegalOperationError;
++    }
+     if (obj == kObjectID_Device && a->mSelector == kAudioDevicePropertyNominalSampleRate) {
+         if (inDataSize != sizeof(Float64)) return kAudioHardwareBadPropertySizeError;
+         return *static_cast<const Float64 *>(inData) == kSampleRate ? kAudioHardwareNoError : kAudioHardwareIllegalOperationError;
+-- 
+2.50.1 (Apple Git-155)
+
