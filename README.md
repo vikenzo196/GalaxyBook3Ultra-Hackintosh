@@ -83,3 +83,11 @@ The modified WhateverXe source is at <https://github.com/vikenzo196/WhateverXe> 
 ## Credits
 
 Acidanthera (OpenCore, Lilu, VirtualSMC, AppleALC, WhateverGreen and friends), the WhateverXe and NootedGreen authors, the VoodooI2C and VoodooPS2 teams, OpenIntelWireless (itlwm, IntelBluetoothFirmware) and lshbluesky (Tahoe Bluetooth fork), USBToolBox.
+
+## License
+
+The files written for this repository (the OpenCore `config.plist`, the ACPI sources, the notes and the scripts under
+`audio/` and `extras/`) are released under the [MIT License](LICENSE).
+
+That license does not cover the bundled third-party binaries (kexts, OpenCore, drivers, firmware) or the patches
+under `patches/`. Each of those keeps the license of its upstream project: see [THIRD-PARTY.md](THIRD-PARTY.md).
