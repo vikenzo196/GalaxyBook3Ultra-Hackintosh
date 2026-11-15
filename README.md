@@ -33,6 +33,8 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
   works with Siri: the plug-in publishes an `imic` data source, which Siri needs to pick the mic. AppleALC is built with
   layout 17 output-only (`patches/AppleALC/`), so the silent codec input is gone. "Hey Siri" needs a T2 chip, so it is
   not available
+- Apple Music in Music.app, when started through a small sandbox wrapper (see `extras/apple-music/`): FairPlay then uses
+  its software path instead of the failing hardware key exchange
 - Continuity over Bluetooth: Handoff and Universal Clipboard (tested with an iPhone)
 - Bluetooth (AX211, `8087:0033` on internal port HS10): IntelBluetoothFirmware + IntelBTPatcher 2.5.3 from the
   [lshbluesky fork](https://github.com/lshbluesky/IntelBluetoothFirmware) (Tahoe support), BlueToolFixup, `-ibtcompatbeta`
