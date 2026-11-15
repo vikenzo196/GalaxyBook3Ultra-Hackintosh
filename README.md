@@ -27,6 +27,7 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
 - Trackpad as a precision touchpad (VoodooI2CHID)
 - Wi-Fi (itlwm, patched for a network-switch panic, see `patches/`)
 - Audio (ALC298 + amplifier init); optional Dolby-derived EQ, see `audio/`
+- Continuity over Bluetooth: Handoff and Universal Clipboard (tested with an iPhone)
 - Bluetooth (AX211, `8087:0033` on internal port HS10): IntelBluetoothFirmware + IntelBTPatcher 2.5.3 from the
   [lshbluesky fork](https://github.com/lshbluesky/IntelBluetoothFirmware) (Tahoe support), BlueToolFixup, `-ibtcompatbeta`
 - CPU boost (single core ~3.97 -> ~4.88 GHz with XE-PM); unused PCI functions put in D3 by XE-PM
@@ -38,7 +39,7 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
 - Package C-states stay at PC2/PC3 (also on Windows with the vendor drivers): platform limit
 - AirPlay screen mirroring: the encoder works, the TV stays on the first frame
 - S3 sleep: parked (the firmware's S3 path does not resume)
-- iPhone calls / Continuity: itlwm is seen as Ethernet, not AirPort
+- AirDrop, Apple Watch unlock, Instant Hotspot: no AWDL with itlwm (seen as Ethernet, not AirPort)
 
 **Not supported (no driver available)**
 - Webcam (Intel IPU6 MIPI)
