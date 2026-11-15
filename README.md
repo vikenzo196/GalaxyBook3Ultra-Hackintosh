@@ -29,7 +29,10 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
 - Audio (ALC298 + amplifier init); optional Dolby-derived EQ, see `audio/`
 - Internal microphone (2 PDM mics on the Intel Smart Sound DSP `8086:51CA`): [TGLDmic](https://github.com/lamjiidii1/TGLDmic)
   built with Raptor Lake-P support ([PR #1](https://github.com/lamjiidii1/TGLDmic/pull/1)), boot-arg `-tgldmic`, plus its Core Audio
-  plug-in (install `TGLDmic-0.6.0.pkg` from the TGLDmic releases). Shows up as "Internal Microphone (TGLDmic)"
+  plug-in from `audio/TGLDmic/` (`bash audio/TGLDmic/install-hal.sh`). Shows up as "Internal Microphone (TGLDmic)" and
+  works with Siri: the plug-in publishes an `imic` data source, which Siri needs to pick the mic. AppleALC is built with
+  layout 17 output-only (`patches/AppleALC/`), so the silent codec input is gone. "Hey Siri" needs a T2 chip, so it is
+  not available
 - Continuity over Bluetooth: Handoff and Universal Clipboard (tested with an iPhone)
 - Bluetooth (AX211, `8087:0033` on internal port HS10): IntelBluetoothFirmware + IntelBTPatcher 2.5.3 from the
   [lshbluesky fork](https://github.com/lshbluesky/IntelBluetoothFirmware) (Tahoe support), BlueToolFixup, `-ibtcompatbeta`

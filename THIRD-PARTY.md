@@ -7,7 +7,7 @@ These files are included unmodified (or built from the fork linked in the README
 | Lilu | 1.7.3 |
 | AMFIPass | 1.4.1 |
 | WhateverXe-dsc (fork build) | 0.8.2 |
-| AppleALC | 1.9.8 |
+| AppleALC | 1.9.8 (rebuilt: ALC298 layout 17 without inputs, see `patches/`) |
 | SimpleHDA | 1.0.0 |
 | BrightnessKeys | 1.0.4 |
 | CPUFriend / CPUFriendDataProvider | 1.3.0 / 1.0.1 |
@@ -23,5 +23,5 @@ These files are included unmodified (or built from the fork linked in the README
 | VoodooPS2Controller | 2.3.8 |
 | itlwm | 2.3.0 (patched, see `patches/`) |
 | IntelBluetoothFirmware / IntelBTPatcher (lshbluesky fork, GPL-3.0) | 2.5.3 |
-| TGLDmic (BSD-3-Clause; embeds Intel-signed SOF firmware, BSD-3-Clause + Intel patent licence) | 0.6.0 + Raptor Lake-P IDs |
+| TGLDmic (BSD-3-Clause; embeds Intel-signed SOF firmware, BSD-3-Clause + Intel patent licence) | 0.6.0 + Raptor Lake-P IDs + Siri data source (kext in EFI, Core Audio plug-in in `audio/TGLDmic/`) |
 | OpenCore drivers | HfsPlus, OpenRuntime, ResetNvramEntry, apfs_aligned |
