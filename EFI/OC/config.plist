@@ -1047,6 +1047,24 @@
 			</dict>
 			<dict>
 				<key>Arch</key>
+				<string>Any</string>
+				<key>BundlePath</key>
+				<string>TGLDmic.kext</string>
+				<key>Comment</key>
+				<string>Internal DMIC (SOF on Intel DSP), RPL-P build</string>
+				<key>Enabled</key>
+				<true/>
+				<key>ExecutablePath</key>
+				<string>Contents/MacOS/TGLDmic</string>
+				<key>MaxKernel</key>
+				<string></string>
+				<key>MinKernel</key>
+				<string></string>
+				<key>PlistPath</key>
+				<string>Contents/Info.plist</string>
+			</dict>
+			<dict>
+				<key>Arch</key>
 				<string>x86_64</string>
 				<key>BundlePath</key>
 				<string>UTBMap.kext</string>
@@ -1447,7 +1465,7 @@
 				AAAAAAAAAAAAAAAAAAA=
 				</data>
 				<key>boot-args</key>
-				<string>keepsyms=1 msgbuf=1048576 ctrsmt=full -ibtcompatbeta -wegnoegpu -allow3d -disablegfxfirmware -igfxdvmt -wex-edp-keep -wex-edp-dsc shda-lang=it alcverbs=1 -wex-edp-blank rtcfx_exclude=0x80-0xAB -wex-mtl-poshfix -wex-edp-auxbl -wex-pm</string>
+				<string>keepsyms=1 msgbuf=1048576 ctrsmt=full -ibtcompatbeta -wegnoegpu -allow3d -disablegfxfirmware -igfxdvmt -wex-edp-keep -wex-edp-dsc shda-lang=it alcverbs=1 -wex-edp-blank rtcfx_exclude=0x80-0xAB -wex-mtl-poshfix -wex-edp-auxbl -wex-pm -tgldmic</string>
 				<key>csr-active-config</key>
 				<data>
 				QwoAAA==

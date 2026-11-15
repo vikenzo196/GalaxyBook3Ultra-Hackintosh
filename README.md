@@ -27,6 +27,9 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
 - Trackpad as a precision touchpad (VoodooI2CHID)
 - Wi-Fi (itlwm, patched for a network-switch panic, see `patches/`)
 - Audio (ALC298 + amplifier init); optional Dolby-derived EQ, see `audio/`
+- Internal microphone (2 PDM mics on the Intel Smart Sound DSP `8086:51CA`): [TGLDmic](https://github.com/lamjiidii1/TGLDmic)
+  built with Raptor Lake-P support ([PR #1](https://github.com/lamjiidii1/TGLDmic/pull/1)), boot-arg `-tgldmic`, plus its Core Audio
+  plug-in (install `TGLDmic-0.6.0.pkg` from the TGLDmic releases). Shows up as "Internal Microphone (TGLDmic)"
 - Continuity over Bluetooth: Handoff and Universal Clipboard (tested with an iPhone)
 - Bluetooth (AX211, `8087:0033` on internal port HS10): IntelBluetoothFirmware + IntelBTPatcher 2.5.3 from the
   [lshbluesky fork](https://github.com/lshbluesky/IntelBluetoothFirmware) (Tahoe support), BlueToolFixup, `-ibtcompatbeta`

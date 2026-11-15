@@ -23,4 +23,5 @@ These files are included unmodified (or built from the fork linked in the README
 | VoodooPS2Controller | 2.3.8 |
 | itlwm | 2.3.0 (patched, see `patches/`) |
 | IntelBluetoothFirmware / IntelBTPatcher (lshbluesky fork, GPL-3.0) | 2.5.3 |
+| TGLDmic (BSD-3-Clause; embeds Intel-signed SOF firmware, BSD-3-Clause + Intel patent licence) | 0.6.0 + Raptor Lake-P IDs |
 | OpenCore drivers | HfsPlus, OpenRuntime, ResetNvramEntry, apfs_aligned |
