@@ -1,0 +1,13 @@
+#!/bin/bash
+# Turns on the Galaxy Book keyboard backlight (GalaxyBookKbd) after boot, from user space.
+# The kext makes no firmware calls during boot; this script sends them once the system is up.
+# Disable: create /usr/local/etc/gbkbd-off
+[ -e /usr/local/etc/gbkbd-off ] && { echo "gbkbd-init: disabled"; exit 0; }
+for i in $(seq 1 60); do
+  ioreg -rc GalaxyBookKbd -d1 2>/dev/null | grep -q 'idle on GBKB' && break
+  sleep 2
+done
+ioreg -rc GalaxyBookKbd -d1 2>/dev/null | grep -q 'idle on GBKB' || { echo "gbkbd-init: driver not ready"; exit 0; }
+sleep 20
+for c in enable-pm enable-kbd arm; do /usr/local/bin/kbdlight "$c" >/dev/null; done
+echo "gbkbd-init: $(date) $(/usr/local/bin/kbdlight | grep -E 'Armed|HardwareLevel' | tr -s ' ' | tr '\n' ' ')"
