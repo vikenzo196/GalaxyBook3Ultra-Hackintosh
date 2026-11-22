@@ -1,5 +1,7 @@
 # Keyboard backlight (GalaxyBookKbd)
 
+Standalone repository, releases and issues: <https://github.com/vikenzo196/GalaxyBookKbd>
+
 macOS has no driver for the Samsung Galaxy Book keyboard backlight. `GalaxyBookKbd.kext` (in the EFI) drives it through
 the Samsung `SCAI` ACPI device (`SAM0429`), using the same `CSFI` protocol as Linux's `samsung-galaxybook` driver.
 

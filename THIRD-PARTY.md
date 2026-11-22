@@ -25,6 +25,6 @@ These files are included unmodified, or built from source as noted, for convenie
 | IntelBluetoothFirmware / IntelBTPatcher (lshbluesky fork, GPL-3.0) | 2.5.3 |
 | TGLDmic (BSD-3-Clause; embeds Intel-signed SOF firmware, BSD-3-Clause + Intel patent licence) | 0.6.0 + Raptor Lake-P IDs + Siri data source (kext in EFI, Core Audio plug-in in `audio/TGLDmic/`) |
 | IntelHybridCores (MIT, github.com/rodgod-rr/IntelHybridCores), built from source 360863e | 0.2.0 |
-| GalaxyBookKbd (this repository, MIT; protocol from Linux `samsung-galaxybook`) | 1.0.0 (v7) |
+| GalaxyBookKbd (MIT, github.com/vikenzo196/GalaxyBookKbd; protocol from Linux `samsung-galaxybook`) | 1.0.0 (v7) |
 | BlueToolFixup | 2.7.3 |
 | OpenCore drivers | HfsPlus, OpenRuntime, ResetNvramEntry, apfs_aligned |

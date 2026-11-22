@@ -26,7 +26,7 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
 - Display sleep / wake, brightness slider and Fn+F2/F3 keys
 - Correct colors from the login window (display profile, see Fixes)
 - Trackpad as a precision touchpad with gestures; **moving a finger wakes the display**, even after a long sleep
-- Keyboard backlight: turns off and on with the display, level 0–3 from the command line (see `extras/keyboard-backlight/`)
+- Keyboard backlight: turns off and on with the display, level 0–3 from the command line, with [GalaxyBookKbd](https://github.com/vikenzo196/GalaxyBookKbd) (user-space part also in `extras/keyboard-backlight/`)
 - P/E-core aware scheduling ([IntelHybridCores](https://github.com/rodgod-rr/IntelHybridCores)): background work runs on the E-cores
 - CPU boost (single core ~4.8 GHz with XE-PM); unused PCI functions put in D3
 - Wi-Fi (itlwm, patched for a network-switch panic, see `patches/`)
