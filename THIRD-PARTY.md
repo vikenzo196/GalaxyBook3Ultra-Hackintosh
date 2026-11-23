@@ -6,7 +6,7 @@ These files are included unmodified, or built from source as noted, for convenie
 |---|---|
 | Lilu | 1.7.3 |
 | AMFIPass | 1.4.1 |
-| WhateverXe-dsc (fork build, branch `fb-norefresh`, github.com/vikenzo196/WhateverXe) | 0.8.3 (4013DDAD) |
+| WhateverXe-dsc (fork build, branch `fb-norefresh`, github.com/vikenzo196/WhateverXe) | 0.8.3-gb3u.2 (B59830D3) |
 | AppleALC | 1.9.8 (rebuilt: ALC298 layout 17 without inputs, see `patches/`) |
 | SimpleHDA | 1.0.0 |
 | BrightnessKeys | 1.0.4 |

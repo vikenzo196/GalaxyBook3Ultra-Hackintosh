@@ -24,6 +24,8 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
   [WhateverXe fork](https://github.com/vikenzo196/WhateverXe) that keeps the firmware-trained eDP link and its DSC setup
 - Clean boot and shutdown, with no white bands during the handoff (see Fixes)
 - Display sleep / wake, brightness slider and Fn+F2/F3 keys
+- **External monitor over USB-C** (DP alt mode), tested with a Dell WD19 dock: one monitor, extended or mirrored,
+  plugged at boot or hot-plugged, with the dock's USB and Ethernet. MST docks run in SST mode, so one external monitor
 - Correct colors from the login window (display profile, see Fixes)
 - Trackpad as a precision touchpad with gestures; **moving a finger wakes the display**, even after a long sleep
 - Keyboard backlight: turns off and on with the display, level 0–3 from the command line, with [GalaxyBookKbd](https://github.com/vikenzo196/GalaxyBookKbd) (user-space part also in `extras/keyboard-backlight/`)
@@ -58,6 +60,7 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
 | Problem | Fix |
 |---|---|
 | No acceleration / black panel on the DSC OLED | WhateverXe fork with `-wex-edp-keep -wex-edp-dsc`: keep the GOP's trained eDP link and DSC/joiner configuration instead of retraining. The official build stops at the Type-C hook gate on this board ([WhateverXe#43](https://github.com/b00t0x/WhateverXe/issues/43)) |
+| External monitor detected but black (USB-C dock) | The fork hides the dock's MST capability (SST mode) and keeps CDCLK running when an output is added next to the kept eDP pipe. Before, both refusals faulted every later output operation ([WhateverXe fork 0.8.3-gb3u.2](https://github.com/vikenzo196/WhateverXe/releases/tag/0.8.3-gb3u.2)) |
 | White bands for ~1 s at boot and 2–3 s at shutdown | The native framebuffer switches the primary plane to Y-tiling while it still scans out the linear firmware image. The fork keeps the plane dark in those windows ([WhateverXe#189](https://github.com/b00t0x/WhateverXe/issues/189)) |
 | ~10 s pause at the progress bar during boot | `gfxrst=4`: skip the slow copy of the firmware image through an uncached mapping |
 | OLED brightness did nothing / flashed | The panel only answers the VESA DPCD interface (11-bit level, DPCD 0x724..0x726); `-wex-edp-auxbl` in the fork, plus `SSDT-PNLF` |
@@ -71,7 +74,7 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
 | Speakers sound thin compared with Windows | EQ derived from Samsung's Dolby tuning for this model, see `audio/` |
 
 The modified WhateverXe source is at <https://github.com/vikenzo196/WhateverXe> (branch `fb-norefresh`: upstream 0.8.3
-plus this laptop's eDP DSC/AUX backlight, XE-PM, GPU-reset, WindowServer YUV and boot/shutdown handoff work).
+plus this laptop's eDP DSC/AUX backlight, XE-PM, GPU-reset, WindowServer YUV, boot/shutdown handoff and USB-C output work).
 `WhateverXe-dsc.kext` in this EFI is built from it.
 
 ## Installation
