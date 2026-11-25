@@ -101,7 +101,7 @@ plus this laptop's eDP DSC/AUX backlight, XE-PM, GPU-reset, WindowServer YUV, bo
 
 Notes:
 - `ACPI/DSDT.aml` is a patched dump of this laptop's firmware table (`_OSI` → `XOSI`, EC brightness rename, `QPTS`/`QWAK`/`GPTS` → `XPTS`/`XWAK`/`XGPT` for `SSDT-S2QPTS`). It depends on the BIOS version: replace it with your own patched dump if yours differs. The source of `SSDT-S2QPTS` is in the [S0ixSleep Samsung example](https://github.com/vikenzo196/S0ixSleep/tree/main/acpi/examples/samsung-galaxy-book3).
-- `HibernationFixup` and the `hbfx-*` boot-args are left from hibernation tests; they are harmless and can be removed.
+- `HibernationFixup.kext` is still in `Kexts` but disabled (left from the hibernation tests, which failed: macOS falls back to S3).
 - OpenCore boot-args are applied from `config.plist` at every boot (NVRAM Delete + Add). Change them there, not only with `nvram`.
 - The picker timeout is 1 s: press any key to stop it. File logging is off (`Misc/Debug/Target = 3`; 67 turns it back on).
 
