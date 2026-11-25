@@ -91,7 +91,7 @@ plus this laptop's eDP DSC/AUX backlight, XE-PM, GPU-reset, WindowServer YUV, bo
 2. Copy `EFI/OC` next to it.
 3. Generate your own SMBIOS (for example with GenSMBIOS) for `MacBookPro16,2` and fill in `PlatformInfo > Generic`: `SystemSerialNumber`, `MLB`, `SystemUUID`, `ROM` (6 bytes, for example your Mac's `en0` address). They are set to `CHANGE_ME` / `CHANGE` here.
 4. Install [WhateverXe Graphics 0.4.4](https://github.com/b00t0x/WhateverXe-Graphics/releases) in macOS (TGL driver kexts in `/Library/Extensions`, `AppleIntelTGLCompat` 0.8.1).
-5. Sleep: install the daemon from the [S0ixSleep release](https://github.com/vikenzo196/S0ixSleep/releases) (`sudo scripts/install.sh`), then
+5. Sleep: install the daemon from the [S0ixSleep release](https://github.com/vikenzo196/S0ixSleep/releases) (`sudo ./scripts/s0ixsleep-setup.sh install`: the kext is already in this EFI, so it only adds the daemon), then
    copy this laptop's settings over it: `sudo cp extras/s0ixsleep/s0ixsleep.conf /usr/local/etc/` and reboot. Without the
    daemon, sleep stays disabled.
 6. Optional user-space parts: keyboard backlight (`extras/keyboard-backlight/install.sh`), microphone plug-in (`audio/TGLDmic/install-hal.sh`), Apple Music wrapper (`extras/apple-music/`).
