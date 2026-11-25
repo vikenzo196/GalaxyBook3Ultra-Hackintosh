@@ -26,6 +26,7 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
 - **System sleep without S3** with [S0ixSleep](https://github.com/vikenzo196/S0ixSleep): closing the lid or idle sleep;
   wake on lid open, any key or the power button, display back in about 2 s with no flashes; fans and power LED off;
   about 4.9 W for the whole laptop while asleep (12–13 h on a full battery); clean shutdown on low battery
+- **Opening the lid powers the laptop on** after a macOS shutdown, as after a Windows one (see Fixes)
 - Display sleep / wake, brightness slider and Fn+F2/F3 keys
 - **External monitor over USB-C** (DP alt mode), tested with a Dell WD19 dock: one monitor, extended or mirrored,
   plugged at boot or hot-plugged, with the dock's USB and Ethernet. MST docks run in SST mode, so one external monitor
@@ -78,6 +79,7 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
 | Kernel panic when switching Wi-Fi networks | Patched itlwm, see `patches/itlwm` ([itlwm#1078](https://github.com/OpenIntelWireless/itlwm/pull/1078)) |
 | Full-screen video crashed WindowServer | WindowServer YUV patch in the fork (YUV layers composited by Metal instead of GVA). Do **not** disable it with `-wex-ws-gva`: the lock-screen wallpaper video then hangs the GPU |
 | Speakers sound thin compared with Windows | EQ derived from Samsung's Dolby tuning for this model, see `audio/` |
+| Opening the lid powered the laptop on after a Windows shutdown, not after a macOS one | Before S5 the firmware's `GPTS` tells the SMI handler to arm power-on-by-lid only when the Samsung Windows driver has set `\_SB.SCAI.DVLD`. `SSDT-S2QPTS` (version 4) sets it on macOS for shutdown only and calls the original (DSDT rename `GPTS` → `XGPT`) |
 | Sleep reset the laptop (no S3 in the firmware) | [S0ixSleep](https://github.com/vikenzo196/S0ixSleep) replaces macOS's final S3 entry with a low-power wait, with its daemon (`extras/s0ixsleep/`). `SSDT-S2QPTS` plus two DSDT renames (`QPTS`/`QWAK` → `XPTS`/`XWAK`) tell the EC about Modern Standby instead of S3 (fans and LED off, keyboard alive after wake) and keep the lid state honest after timer wakes. The fork with `-wex-s0ixsleep` keeps the kept eDP dark through the sleep and resets the GT from S0ixSleep's wait hook |
 | No sound after adding kexts (AppleALC did not attach to AppleHDA) | Lilu's pool for function wrappers (4 KB) runs out with the ~170 wrappers of the WhateverXe fork. This EFI's Lilu is 1.7.3 built with a 16 KB pool: `patches/Lilu/lilu-16k.patch` |
 
@@ -98,7 +100,7 @@ plus this laptop's eDP DSC/AUX backlight, XE-PM, GPU-reset, WindowServer YUV, bo
 7. Keep a second OpenCore on a USB stick as a fallback. If it lacks `SSDT-PNLF`, brightness stays at minimum.
 
 Notes:
-- `ACPI/DSDT.aml` is a patched dump of this laptop's firmware table (`_OSI` → `XOSI`, EC brightness rename, `QPTS`/`QWAK` → `XPTS`/`XWAK` for `SSDT-S2QPTS`). It depends on the BIOS version: replace it with your own patched dump if yours differs. The source of `SSDT-S2QPTS` is in the [S0ixSleep Samsung example](https://github.com/vikenzo196/S0ixSleep/tree/main/acpi/examples/samsung-galaxy-book3).
+- `ACPI/DSDT.aml` is a patched dump of this laptop's firmware table (`_OSI` → `XOSI`, EC brightness rename, `QPTS`/`QWAK`/`GPTS` → `XPTS`/`XWAK`/`XGPT` for `SSDT-S2QPTS`). It depends on the BIOS version: replace it with your own patched dump if yours differs. The source of `SSDT-S2QPTS` is in the [S0ixSleep Samsung example](https://github.com/vikenzo196/S0ixSleep/tree/main/acpi/examples/samsung-galaxy-book3).
 - `HibernationFixup` and the `hbfx-*` boot-args are left from hibernation tests; they are harmless and can be removed.
 - OpenCore boot-args are applied from `config.plist` at every boot (NVRAM Delete + Add). Change them there, not only with `nvram`.
 - The picker timeout is 1 s: press any key to stop it. File logging is off (`Misc/Debug/Target = 3`; 67 turns it back on).
