@@ -18,3 +18,9 @@
   Raptor Lake-P DSP IDs (`8086:51CA`/`51CB`, same Intel-signed SOF image as Alder Lake) and an `imic` data source control
   in the Core Audio plug-in so that Siri picks the microphone. `TGLDmic.kext` in this EFI and `audio/TGLDmic/TGLDmic.driver`
   are built from it.
+
+## Lilu
+
+`Lilu/lilu-16k.patch`: raises `KernelPatcher::TempExecutableMemorySize` from 4096 to 16384 bytes. The fixed pool for
+function wrappers runs out with the ~170 wrappers of the WhateverXe fork; the plugins loaded after it (AppleALC on
+AppleHDA) then fail to hook and the sound disappears. Built from Lilu 0249c3a (1.7.3).

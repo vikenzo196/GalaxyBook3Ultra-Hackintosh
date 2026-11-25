@@ -1,0 +1,13 @@
+diff --git a/Lilu/Headers/kern_patcher.hpp b/Lilu/Headers/kern_patcher.hpp
+index afbc6ef..dc83468 100644
+--- a/Lilu/Headers/kern_patcher.hpp
++++ b/Lilu/Headers/kern_patcher.hpp
+@@ -647,7 +647,7 @@ private:
+ 	/**
+ 	 *  The minimal reasonable memory requirement
+ 	 */
+-	static constexpr size_t TempExecutableMemorySize {4096};
++	static constexpr size_t TempExecutableMemorySize {16384};
+ 
+ 	/**
+ 	 *  As of 10.12 we seem to be not allowed to call vm_ functions from several places including onKextSummariesUpdated.

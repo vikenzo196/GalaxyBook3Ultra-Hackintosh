@@ -118,6 +118,14 @@
 				<key>Path</key>
 				<string>SSDT-GBKB.aml</string>
 			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>s2idle sleep: skip EC sleep-entry command in _PTS(3) on macOS (needs DSDT QPTS-&gt;XPTS)</string>
+				<key>Enabled</key>
+				<true/>
+				<key>Path</key>
+				<string>SSDT-S2QPTS.aml</string>
+			</dict>
 		</array>
 		<key>Delete</key>
 		<array/>
@@ -500,6 +508,10 @@
 			</dict>
 			<key>PciRoot(0x0)/Pci(0x6,0x0)/Pci(0x0,0x0)</key>
 			<dict>
+				<key>built-in</key>
+				<data>
+				AQAAAA==
+				</data>
 				<key>pci-aspm-default</key>
 				<data>
 				AgAAAA==
@@ -524,6 +536,24 @@
 				<true/>
 				<key>ExecutablePath</key>
 				<string>Contents/MacOS/Lilu</string>
+				<key>MaxKernel</key>
+				<string></string>
+				<key>MinKernel</key>
+				<string></string>
+				<key>PlistPath</key>
+				<string>Contents/Info.plist</string>
+			</dict>
+			<dict>
+				<key>Arch</key>
+				<string>x86_64</string>
+				<key>BundlePath</key>
+				<string>HibernationFixup.kext</string>
+				<key>Comment</key>
+				<string>HibernationFixup 1.5.4</string>
+				<key>Enabled</key>
+				<true/>
+				<key>ExecutablePath</key>
+				<string>Contents/MacOS/HibernationFixup</string>
 				<key>MaxKernel</key>
 				<string></string>
 				<key>MinKernel</key>
@@ -560,6 +590,24 @@
 				<true/>
 				<key>ExecutablePath</key>
 				<string>Contents/MacOS/WhateverXe</string>
+				<key>MaxKernel</key>
+				<string></string>
+				<key>MinKernel</key>
+				<string></string>
+				<key>PlistPath</key>
+				<string>Contents/Info.plist</string>
+			</dict>
+			<dict>
+				<key>Arch</key>
+				<string>x86_64</string>
+				<key>BundlePath</key>
+				<string>S0ixSleep.kext</string>
+				<key>Comment</key>
+				<string>S0ixSleep (sleep without S3)</string>
+				<key>Enabled</key>
+				<true/>
+				<key>ExecutablePath</key>
+				<string>Contents/MacOS/S0ixSleep</string>
 				<key>MaxKernel</key>
 				<string></string>
 				<key>MinKernel</key>
@@ -672,6 +720,24 @@
 				<string></string>
 				<key>MinKernel</key>
 				<string></string>
+				<key>PlistPath</key>
+				<string>Contents/Info.plist</string>
+			</dict>
+			<dict>
+				<key>Arch</key>
+				<string>Any</string>
+				<key>BundlePath</key>
+				<string>NVMeFix.kext</string>
+				<key>Comment</key>
+				<string></string>
+				<key>Enabled</key>
+				<false/>
+				<key>ExecutablePath</key>
+				<string>Contents/MacOS/NVMeFix</string>
+				<key>MaxKernel</key>
+				<string></string>
+				<key>MinKernel</key>
+				<string>18.0.0</string>
 				<key>PlistPath</key>
 				<string>Contents/Info.plist</string>
 			</dict>
@@ -794,6 +860,24 @@
 				<true/>
 				<key>ExecutablePath</key>
 				<string>Contents/MacOS/USBToolBox</string>
+				<key>MaxKernel</key>
+				<string></string>
+				<key>MinKernel</key>
+				<string></string>
+				<key>PlistPath</key>
+				<string>Contents/Info.plist</string>
+			</dict>
+			<dict>
+				<key>Arch</key>
+				<string>Any</string>
+				<key>BundlePath</key>
+				<string>UTBDefault.kext</string>
+				<key>Comment</key>
+				<string></string>
+				<key>Enabled</key>
+				<false/>
+				<key>ExecutablePath</key>
+				<string></string>
 				<key>MaxKernel</key>
 				<string></string>
 				<key>MinKernel</key>
@@ -1382,9 +1466,9 @@
 			<key>ConsoleAttributes</key>
 			<integer>0</integer>
 			<key>HibernateMode</key>
-			<string>None</string>
+			<string>Auto</string>
 			<key>HibernateSkipsPicker</key>
-			<false/>
+			<true/>
 			<key>HideAuxiliary</key>
 			<false/>
 			<key>InstanceIdentifier</key>
@@ -1516,7 +1600,7 @@
 				AAAAAAAAAAAAAAAAAAA=
 				</data>
 				<key>boot-args</key>
-				<string>keepsyms=1 msgbuf=1048576 ctrsmt=off -ibtcompatbeta -wegnoegpu -allow3d -disablegfxfirmware -igfxdvmt -wex-edp-keep -wex-edp-dsc shda-lang=it alcverbs=1 -wex-edp-blank rtcfx_exclude=0x80-0xAB -wex-mtl-poshfix -wex-edp-auxbl -wex-pm -tgldmic gfxrst=4</string>
+				<string>keepsyms=1 msgbuf=1048576 ctrsmt=off -ibtcompatbeta -wegnoegpu -allow3d -disablegfxfirmware -igfxdvmt -wex-edp-keep -wex-edp-dsc shda-lang=it alcverbs=1 -wex-edp-blank rtcfx_exclude=0x80-0xAB -wex-mtl-poshfix -wex-edp-auxbl -wex-pm -tgldmic gfxrst=4 hbfx-ahbm=1 -hbfx-dump-nvram -wex-s0ixsleep</string>
 				<key>csr-active-config</key>
 				<data>
 				QwoAAA==

@@ -4,11 +4,13 @@ These files are included unmodified, or built from source as noted, for convenie
 
 | Component | Version in this EFI |
 |---|---|
-| Lilu | 1.7.3 |
+| Lilu (built from source 0249c3a with a 16 KB wrapper pool, see `patches/Lilu`) | 1.7.3 |
+| S0ixSleep (BSD-3-Clause, github.com/vikenzo196/S0ixSleep) | 0.1.0 (EE4A9E00) |
+| HibernationFixup | 1.5.4 |
 | AMFIPass | 1.4.1 |
-| WhateverXe-dsc (fork build, branch `fb-norefresh`, github.com/vikenzo196/WhateverXe) | 0.8.3-gb3u.2 (B59830D3) |
+| WhateverXe-dsc (fork build, branch `fb-norefresh`, github.com/vikenzo196/WhateverXe) | 0.8.3-gb3u.3 (98CDDCD5) |
 | AppleALC | 1.9.8 (rebuilt: ALC298 layout 17 without inputs, see `patches/`) |
-| SimpleHDA | 1.0.0 |
+| SimpleHDA | 1.0.2 |
 | BrightnessKeys | 1.0.4 |
 | CPUFriend / CPUFriendDataProvider | 1.3.0 / 1.0.1 |
 | CpuTopologyRebuild | 2.0.2 |
