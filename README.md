@@ -24,8 +24,9 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
   [WhateverXe fork](https://github.com/vikenzo196/WhateverXe) that keeps the firmware-trained eDP link and its DSC setup
 - Clean boot and shutdown, with no white bands during the handoff (see Fixes)
 - **System sleep without S3** with [S0ixSleep](https://github.com/vikenzo196/S0ixSleep): closing the lid or idle sleep;
-  wake on lid open, any key or the power button, display back in about 2 s with no flashes; fans and power LED off;
-  about 4.9 W for the whole laptop while asleep (12–13 h on a full battery); clean shutdown on low battery
+  wake on lid open (also when the embedded controller misses its lid event), any key or the power button, display
+  back in about 2 s with no flashes; fans and power LED off; about 5–5.6 W for the whole laptop while asleep,
+  hourly checks included (about 10 h from a full battery); clean shutdown at 10 %, after a second reading
 - **Opening the lid powers the laptop on** after a macOS shutdown, as after a Windows one (see Fixes)
 - Display sleep / wake, brightness slider and Fn+F2/F3 keys
 - **External monitor over USB-C** (DP alt mode), tested with a Dell WD19 dock: one monitor, extended or mirrored,
@@ -42,6 +43,7 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
   [PR #1](https://github.com/lamjiidii1/TGLDmic/pull/1)), including Siri; Core Audio plug-in in `audio/TGLDmic/`
 - Apple Music, through a small sandbox wrapper (`extras/apple-music/`)
 - Continuity over Bluetooth: Handoff and Universal Clipboard
+- AirPlay to the Mac (iPhone or iPad screen mirroring), with the WindowServer YUV patch of the fork
 
 **Limits / known issues**
 - Sleep is not real S0ix: the firmware has no S3 and macOS has no Modern Standby, so S0ixSleep keeps the CPU in its
@@ -53,7 +55,15 @@ OpenCore EFI and notes for the **Samsung Galaxy Book3 Ultra (NP964XFH)** running
 - Scrolling in heavy apps (App Store, WhatsApp) has occasional hitches at 120 Hz. Instruments attributes them to the
   apps' own main-thread work, not to the GPU or the driver
 - The animated lock-screen wallpaper has occasional micro-stutter: WindowServer is close to the 8.3 ms budget at 120 Hz
-- AirPlay screen mirroring: the encoder works, but the TV stays on the first frame
+- AirPlay from the Mac to a TV: the TV stays on the first frame (the hardware H.264 encoder crashes in Intel's
+  video driver after the first frame, in the low-latency mode AirPlay uses)
+- Keyboard backlight key (Fn+F9) does nothing: the level is set from the command line
+- The battery percentage is sometimes wrong right after a wake or at boot (for example 1 %), until macOS reads the
+  battery again or the charger is plugged in: the EC reports a wrong remaining capacity for a few seconds. Under
+  investigation; the sleep daemon confirms a low reading before shutting down
+- macOS updates: the WindowServer YUV patch in the fork only applies to the macOS builds it knows (now 25G342).
+  After an update it stays off until the fork learns the new build: until then use a static lock-screen wallpaper
+  and avoid AirPlay to the Mac
 - AirDrop, Apple Watch unlock, Instant Hotspot: no AWDL with itlwm
 
 **Not supported (no driver available)**
